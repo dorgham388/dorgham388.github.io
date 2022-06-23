@@ -1,57 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+/*
+ * Created Date: Sunday June 19th 2022
+ * Author: Amir Dorgham
+ * -----
+ * Last Modified: Sunday, June 19th 2022, 4:38:57 pm
+ * Modified By: Amir Dorgham
+ * -----
+ */
+
+import React from "react";
+import "./App.css";
+import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
+import ProtectedLayout from "app/layouts/protected";
+import getRoutes from "./app/routes";
 
 function App() {
+  const { publicRoutes, protectedRoutes } = getRoutes();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Navigate to={"/home"} replace />} />
+        <Route
+          element={<ProtectedLayout isAllowed={false} redirectPath="/login" />}
+        >
+          {protectedRoutes.map((route, idx) => (
+            <Route path={route.path} element={route.element} key={idx} />
+          ))}
+        </Route>
+        {publicRoutes.map((route, idx) => (
+          <Route path={route.path} element={route.element} key={idx} />
+        ))}
+
+        {/* <Route
+          path="analytics"
+          element={
+            <ProtectedLayout
+              redirectPath="/login"
+              isAllowed={!!user && user.permissions.includes("analyze")}
+            >
+              <Analytics />
+            </ProtectedLayout>
+          }
+        /> 
+         <Route
+          path="admin"
+          element={
+            <ProtectedLayout
+              redirectPath="/home"
+              isAllowed={!!user && user.roles.includes("admin")}
+            >
+              <Admin />
+            </ProtectedLayout>
+          }
+        /> */}
+
+        <Route path="*" element={<div>404 notfound</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
