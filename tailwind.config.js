@@ -17,8 +17,18 @@ module.exports = {
       yellow: colors.amber,
       green: colors.green,
       emerald: colors.emerald,
+      sky: colors.sky,
+      slate: colors.slate,
+      zinc: colors.zinc,
+      stone: colors.stone,
+      violet: colors.violet,
+      neutral: colors.neutral,
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        fixedBack: "url('app/assets/images/bg.jpg')",
+      },
+    },
   },
   plugins: [],
 };

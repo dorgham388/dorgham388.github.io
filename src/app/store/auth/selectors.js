@@ -2,9 +2,9 @@
  * Created Date: Wednesday June 18th 2022
  * Author: Amir Dorgham
  * -----
- * Last Modified: Saturday, June 18th 2022, 11:51:13 am
+ * Last Modified: Saturday, August 13th 2022, 5:56:49 pm
  * Modified By: Amir Dorgham
  * -----
  */
 
-export const selectCart = (state) => state.cartReducer.cart;
+export const selectAuthenticated = (state) => state.authReducer.isAuthenticated;

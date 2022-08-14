@@ -1,37 +1,57 @@
 /*
- * Created Date: Wednesday June 18th 2022
+ * Created Date: Sunday August 14th 2022
  * Author: Amir Dorgham
  * -----
- * Last Modified: Saturday, June 18th 2022, 11:51:50 am
+ * Last Modified: Sunday, August 14th 2022, 11:45:08 am
  * Modified By: Amir Dorgham
  * -----
  */
 
-import axios from "axios";
 import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_ERROR,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_ERROR,
 } from "./actionTypes";
 
 // ------------------
 // REGISTER
-export const register = (userData, history) => (dispatch) => {
+export const registerRequest = () => (dispatch) => {
   dispatch({
     type: USER_REGISTER_REQUEST,
   });
-  return axios
-    .post(`${process.env.REACT_APP_API_URL}/auth/register`, userData)
-    .then((response) => {
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: response.data,
-      });
-    })
-    .catch((e) => {
-      dispatch({
-        type: USER_REGISTER_ERROR,
-        payload: JSON.parse(e.response.request.response).errors,
-      });
-    });
+};
+export const registerSuccess = (data) => (dispatch) => {
+  dispatch({
+    type: USER_REGISTER_SUCCESS,
+    payload: data,
+  });
+};
+export const registerError = (error) => (dispatch) => {
+  dispatch({
+    type: USER_REGISTER_ERROR,
+    payload: error,
+  });
+};
+
+// ------------------
+// LOGIN
+export const loginRequest = () => (dispatch) => {
+  dispatch({
+    type: USER_LOGIN_REQUEST,
+  });
+};
+export const loginSuccess = (data) => (dispatch) => {
+  dispatch({
+    type: USER_LOGIN_SUCCESS,
+    payload: data,
+  });
+};
+export const loginError = (error) => (dispatch) => {
+  dispatch({
+    type: USER_LOGIN_ERROR,
+    payload: error,
+  });
 };
